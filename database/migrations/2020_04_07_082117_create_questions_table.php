@@ -15,7 +15,7 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
 
-            $table->id('id');
+            $table->increments('id');
             $table->string('title');
             $table->string('slug')->uniquie(); // Unique slug
             $table->text('body');
@@ -25,7 +25,9 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('best_answer_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
