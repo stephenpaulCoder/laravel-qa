@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     //the user can have many question hasMany
-    public function question(){
+    public function questions(){
         return $this->hasMany(Question::class);
     }
 
