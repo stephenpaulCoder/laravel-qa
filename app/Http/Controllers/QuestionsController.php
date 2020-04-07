@@ -37,7 +37,9 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        //pass the question object using compact
+      $question = new Question();
+        return view('questions.create',compact('question'));
     }
 
     /**
