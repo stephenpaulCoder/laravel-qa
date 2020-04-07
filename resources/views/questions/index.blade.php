@@ -10,12 +10,17 @@
                     <div class="media">
                         <div class="media-body">
                             <h3 class="mt-0">
-                                {{$question->title}}
+                                <a href="{{ $question->url }}">{{$question->title}}</a>
                             </h3>
+                            <p class="lead">
+                                Asked body
+                                <a href="{{ $question->user->url }}">{{$question->user->name}}</a>
+                                <small class="text-muted">{{$question->created_date}}</small>
+                            </p>
                             {{Str::lower($question->body,250)}}
                         </div>
                     </div>
-                    @endforeach
+                    <hr> @endforeach
                     <div class="">
                         {{$questions->links()}}
                     </div>

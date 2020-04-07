@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     //
+
     protected $fillable = ['title','body'];
 
     // a question belongs to user
@@ -20,7 +21,13 @@ class Question extends Model
 
         $this->attributes['title']=$value;
         $this->attributes['slug'] =  Str::slug($value);
+    }
 
+    public function getUrlAttribute(){
+        return route('questions.show',$this->id);
+    }
 
+    public function getCreatedDateAttribute(){
+        return $this->created_at->diffForHumans();
     }
 }
