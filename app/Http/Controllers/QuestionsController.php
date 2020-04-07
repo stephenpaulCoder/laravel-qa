@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
+use App\Http\Requests\AskQuestionRequest;
 class QuestionsController extends Controller
 {
     /**
@@ -48,9 +49,12 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request )
     {
         //
+        // dd('store'); to test if is working
+        $request->user()->questions()->create($request->only('title','body')); // you can also use the all() method rather than only('','');
+        return redirect()->route('questions.index')->with('success','Your Question has been submitted');
     }
 
     /**
