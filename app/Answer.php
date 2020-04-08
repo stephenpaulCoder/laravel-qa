@@ -10,6 +10,8 @@ class Answer extends Model
 {
     //
 
+    protected $fillable = ['body','user_id'];
+
     //first relationship method to Question to model
     public function question(){
         return $this->belongsTo(Question::class);
