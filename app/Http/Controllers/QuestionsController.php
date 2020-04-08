@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
+use App\User;
 use App\Http\Requests\AskQuestionRequest;
 class QuestionsController extends Controller
 {
@@ -52,6 +53,7 @@ class QuestionsController extends Controller
     public function store(AskQuestionRequest $request )
     {
         //
+
         // dd('store'); to test if is working
         $request->user()->questions()->create($request->only('title','body')); // you can also use the all() method rather than only('','');
         return redirect()->route('questions.index')->with('success','Your Question has been submitted');
@@ -63,9 +65,17 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        //
+
+
+        //increment the views in the specific question
+
+        $question->increment('views');
+
+        return view('questions.show',compact('question'));
+
+
     }
 
     /**
