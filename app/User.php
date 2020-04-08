@@ -55,4 +55,9 @@ class User extends Authenticatable
 
 
     // }
+
+   //relationship model to answer model
+    public function answers(){
+        return $this->hasMany(Answer::class);
+    }
 }
