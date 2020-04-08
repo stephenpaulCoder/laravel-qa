@@ -77,7 +77,6 @@ class QuestionsController extends Controller
         //increment the views in the specific question
 
         $question->increment('views');
-
         return view('questions.show',compact('question'));
 
 
