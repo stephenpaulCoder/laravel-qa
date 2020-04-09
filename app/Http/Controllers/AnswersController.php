@@ -97,8 +97,16 @@ class AnswersController extends Controller
      * @param  \App\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Answer $answer)
+    public function destroy(Question $question , Answer $answer)
     {
-        //
+        //Authorize user to delete
+        $this->authorize('delete',$answer);
+
+        //Delete the answer
+        $answer->delete();
+
+        //back and display message
+        return back()->with('success','Your answer has been removed');
+
     }
 }

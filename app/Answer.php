@@ -29,9 +29,15 @@ class Answer extends Model
     public static function boot(){
             parent::boot();
 
+            //Increment the answer count from the database
             static::created(function($answer){
                 $answer->question->increment('answers_count');
-                $answer->question->save();
+
+            });
+
+            //decrement the answer count from the database
+            static::deleted(function($answer){
+                $answer->question->decrement('answers_count');
             });
 
 

@@ -40,7 +40,7 @@
                             <div class="col-4">
 
                             </div>
-                            <div class="col-4">
+                            <div class="col-4 mt-4">
                                 <span class="text-muted" style="font-size:small">
                                     Answered
                                     {{$answer->created_date}}
