@@ -28,3 +28,6 @@ Route::resource('questions', 'QuestionsController')->except('show');
 // You can also use this following method
 Route::resource('questions.answers', 'AnswersController')->except(['create','index','show']);
 Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show');
+
+//single action controller that hold only single action
+Route::post('/answers/{answer}/accept','AcceptAnswerController')->name('answers.accept');
