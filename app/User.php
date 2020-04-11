@@ -69,7 +69,41 @@ class User extends Authenticatable
     // }
 
     //relationship in answer and question table
-    public function favorites(){
-        return $this->belongsToMany(Question::class,'favorites')->withTimestamps(); //'author_id','question_id');
+   public function favorites()
+    {
+        return $this->belongsToMany(Question::class, 'favorites')->withTimestamps(); //, 'author_id', 'question_id');
+    }
+
+
+    //specify the table name in second arguement , eloquent will recognize that the pivot table name is for votables
+    public function voteQuestions(){
+        return $this->morphedByMany(Question::class,'votable');
+    }
+
+     //specify the table name in second arguement , eloquent will recognize that the pivot table name is for votables
+    public function voteAnswers(){
+        return $this->morphedByMany(Answer::class,'votable');
+    }
+
+
+
+    public function voteQuestion(Question $question, $vote){
+
+        $voteQuestions = $this->voteQuestions();
+
+        if($voteQuestions->where('votable_id',$question->id)->exists()){
+            $voteQuestions->updateExistingPivot($question,['vote'=>$vote]);
+        }
+        else{
+            $voteQuestions->attach($question,['vote'=>$vote]);
+        }
+        $question->load('votes');
+        // $downvotes = (int) $question->votes()->wherePivot('vote',-1)->sum('vote');
+        $downVotes = (int) $question->downVotes()->sum('vote');
+        //   $upvotes = (int) $question->votes()->wherePivot('vote',1)->sum('vote');
+        $upVotes = (int) $question->upVotes()->sum('vote');
+
+        $question->votes_count = $upVotes + $downVotes ;
+        $question->save();
     }
 }

@@ -73,4 +73,9 @@ class Answer extends Model
         return $this->id == $this->question->best_answer_id;
     }
 
+    //first relationship method in votable and second arguemnet for the pivot table name
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'votable');
+    }
 }
