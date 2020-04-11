@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Answer;
+use App\Question;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,4 +67,9 @@ class User extends Authenticatable
     // public function getAvatarAttribute(){
 
     // }
+
+    //relationship in answer and question table
+    public function favorites(){
+        return $this->belongsToMany(Question::class,'favorites')->withTimestamps(); //'author_id','question_id');
+    }
 }
