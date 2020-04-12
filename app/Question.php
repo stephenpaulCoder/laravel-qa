@@ -5,6 +5,7 @@ use App\User;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Yansongda\LaravelParsedown\Facades\Parsedown;
 
 class Question extends Model
 {
@@ -44,15 +45,43 @@ class Question extends Model
         return "unanswered";
     }
 
+    //prevent XSS attack
+    /**
+     * example paste in registration for or what kind of form
+     * <p>Stephen Paul simple XSS </p><script>alert('Success XSS')</script>
+     */
+
+    //use Clean library using clean($this->bodyHtml());
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+        return clean($this->bodyHtml());
     }
+    /**
+     * another way to use Clean library
+     *
+     * public function setBodyAttribute($value){
+     * $this->attributes['body]=clean($value);
+     * }
+     */
+
+    //prevent XSS attack
+    public function getExcerptAttribute(){
+    //   return  Str::limit(strip_tags($this->bodyHtml()),250);
+    return $this->excerpt(250);
+    }
+    //prevent XSS attack
+    public function excerpt($length){
+     return  Str::limit(strip_tags($this->bodyHtml()),$length);
+    }
+    //prevent XSS attack
+    private function bodyHtml(){
+      return Parsedown::instance()->text($this->body);
+    }
+    //link for parsedown  https://github.com/yansongda/laravel-parsedown external library
 
     //relationship model to answer model
     public function answers(){
         return $this->hasMany(Answer::class);
         //question->answers()->count()
-
     }
 
     public function acceptBestAnswer(Answer $answer){

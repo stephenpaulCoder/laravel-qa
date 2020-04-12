@@ -16,7 +16,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "thomaswelton/laravel-gravatar": "~1.0"
+        "mews/purifier": "^3.2",
+        "thomaswelton/laravel-gravatar": "~1.0",
+        "yansongda/laravel-parsedown": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

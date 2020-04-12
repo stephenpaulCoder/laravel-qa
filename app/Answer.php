@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Question;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Yansongda\LaravelParsedown\Facades\Parsedown;
 
 class Answer extends Model
 {
@@ -23,7 +24,7 @@ class Answer extends Model
     }
 
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+        return clean(Parsedown::instance()->text($this->body));
     }
 
     public static function boot(){

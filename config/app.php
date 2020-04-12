@@ -174,11 +174,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Yansongda\LaravelParsedown\ParsedownServiceProvider::class,
 
     ],
 
     /*
-    |--------------------------------------------------------------------------
+|-------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
     |
@@ -226,7 +227,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-       'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class
+        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'LaravelParsedown' => Yansongda\LaravelParsedown\Facades\Parsedown::class
 
     ],
 

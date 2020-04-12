@@ -1,4 +1,4 @@
-@if($mode instanceof App\Question) @php $name ='question'; $firstURISegment='questions'; @endphp @elseif ($mode instanceof App\Answer) @php $name ='answer'; $firstURISegment='answers'; @endphp @endif @php $formId= $name. "-" .$model->id; $formAction=
+@if($model instanceof App\Question) @php $name ='question'; $firstURISegment='questions'; @endphp @elseif ($model instanceof App\Answer) @php $name ='answer'; $firstURISegment='answers'; @endphp @endif @php $formId= $name. "-" .$model->id; $formAction=
 "/{$firstURISegment}/{model->id }/vote"; @endphp
 <div class="d-flex flex-column vote-controls">
     <!-- up vote start -->
@@ -13,7 +13,7 @@
     <!-- up vote ends -->
     <!-- votes count counter start -->
     <span class="votes-count">
-        {{model->votes_count}}
+        {{$model->votes_count}}
     </span>
     <!-- votes count counter end -->
     <!-- down vote button start -->

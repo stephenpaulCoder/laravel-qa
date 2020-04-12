@@ -1,5 +1,5 @@
 <span class="text-muted" style="font-size:small">
-    {{ $label . "" .$model->created_date}}
+    {{ $label . " " .$model->created_date}}
 </span>
 <div class="media mt-2">
     <a href="{{$model->user->url}}" class="pr-2">

@@ -15,14 +15,14 @@
                     </div>
                     <hr />
                     <div class="media">
-                        @include('shared.vote', 'mode'=>$question )
+                        @include('shared.vote',[ 'model'=>$question ])
                         <div class="media-body">
                             {!! $question->body !!}
                             <div class="row">
                                 <div class="col-4"></div>
                                 <div class="col-4"></div>
                                 <div class="col-4">
-                                    @include('shared.author',[ 'model'=>$question, 'label'=>'asked' ])
+                                    @include('shared.author', [ 'model'=>$question, 'label'=>'asked' ])
                                 </div>
                             </div>
                         </div>
