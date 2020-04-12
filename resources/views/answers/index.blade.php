@@ -65,21 +65,7 @@
 
                             </div>
                             <div class="col-4 mt-4">
-                                <span class="text-muted" style="font-size:small">
-                                    Answered
-                                    {{$answer->created_date}}
-                                </span>
-                                <div class="media mt-2">
-                                    <a href="{{$answer->user->url}}" class="pr-2">
-                                        <img width="30px" height="30px" style="border-radius: 50%;"
-                                            src="{{Gravatar::src($answer->user->email)}}" alt="" />
-                                    </a>
-                                    <div class="media-body mt-1">
-                                        <a href="{{$answer->user->url}}">
-                                            {{$answer->user->name}}
-                                        </a>
-                                    </div>
-                                </div>
+                                @include('shared.author',[ 'model'=>$answer, 'label'=>'answered' ])
                             </div>
                         </div>
 
