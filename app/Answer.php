@@ -9,7 +9,7 @@ use App\User;
 class Answer extends Model
 {
     //
-
+    use VotableTrait;
     protected $fillable = ['body','user_id'];
 
     //first relationship method to Question to model
@@ -74,10 +74,20 @@ class Answer extends Model
     }
 
     //first relationship method in votable and second arguemnet for the pivot table name
-    public function votes()
-    {
-        return $this->morphToMany(User::class, 'votable');
-    }
+    //refreactor the code and paste in votabletrait.php
+    // public function votes()
+    // {
+    //     return $this->morphToMany(User::class, 'votable');
+    // }
+
+    // public function upVotes(){
+    //     return $this->votes()->wherePivot('vote',1);
+    // }
+
+    //   public function downVotes(){
+    //     return $this->votes()->wherePivot('vote',-1);
+    // }
+
 
     // public function voteAnswer(Answer $answer , $vote){
     //     $voteAnswers = $this->voteAnswers();
@@ -97,13 +107,4 @@ class Answer extends Model
     //     $answer->votes_count = $upVotes + $downVotes ;
     //     $answer->save();
     // }
-
-
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote',1);
-    }
-
-      public function downVotes(){
-        return $this->votes()->wherePivot('vote',-1);
-    }
 }

@@ -9,7 +9,7 @@ class VoteQuestionController extends Controller
 {
     //
 
-    public function __contruct(){
+    public function __construct(){
         $this->middleware('auth');
     }
 
@@ -20,7 +20,7 @@ class VoteQuestionController extends Controller
        // we need to get the current user by auth then call the user method to get user instance and the voteQUestion
        //pass the question instance and vote instance in second arguement and refresh the page by calling bakc.
 
-       auth()->user()->voteQUestion($question,$vote);
+       auth()->user()->voteQuestion($question,$vote);
 
        return back();
 

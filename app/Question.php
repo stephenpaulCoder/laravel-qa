@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 class Question extends Model
 {
     //
-
+    //use VotableTrait;
+    use VotableTrait;
     protected $fillable = ['title','body'];
 
     // a question belongs to user
@@ -82,17 +83,19 @@ class Question extends Model
 
 
     //first relationship method in votable and second arguemnet for the pivot table name
-    public function votes()
-    {
-        return $this->morphToMany(User::class, 'votable');
-    }
+    //refactor the code and paste in VotableTrait.php
+    // public function votes()
+    // {
+    //     return $this->morphToMany(User::class, 'votable');
+    // }
 
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote',1);
-    }
+    // public function upVotes(){
+    //     return $this->votes()->wherePivot('vote',1);
+    // }
 
-      public function downVotes(){
-        return $this->votes()->wherePivot('vote',-1);
-    }
+    //   public function downVotes(){
+    //     return $this->votes()->wherePivot('vote',-1);
+    // }
+
 
 }
