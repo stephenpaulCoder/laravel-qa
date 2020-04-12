@@ -35,7 +35,18 @@ class RouteServiceProvider extends ServiceProvider
         //
         Route::bind('slug',function($slug){
 
+        //Option 1
+        // return Question::with('answers.user')->where('slug',$slug)->first() ?? abort(404);
+        //    return Question::with(['answers.user','answers'=>function($query){
+        //    $query->orderBy('votes_count','DESC');// query the result by votes count and order by highest votes in answer
+        //    }])->where('slug',$slug)->first() ?? abort(404);
+        // return $question ? $question : abort(404);
+
+        //Option 2
         return Question::with('answers.user')->where('slug',$slug)->first() ?? abort(404);
+        //    return Question::with(['answers.user','answers'=>function($query){
+        //    $query->orderBy('votes_count','DESC');// query the result by votes count and order by highest votes in answer
+        //    }])->where('slug',$slug)->first() ?? abort(404);
         // return $question ? $question : abort(404);
 
         });
