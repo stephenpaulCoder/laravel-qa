@@ -80,7 +80,7 @@ class Question extends Model
 
     //relationship model to answer model
     public function answers(){
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->orderBy('votes_count','DESC');
         //question->answers()->count()
     }
 

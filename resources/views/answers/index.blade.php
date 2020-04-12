@@ -1,3 +1,4 @@
+@if($answersCount > 0)
 <div class="row mt-4">
     <div class="col-md-12">
         <div class="card">
@@ -35,17 +36,7 @@
                             <input type="hidden" name="vote" value="-1">
                         </form>
                         <!-- down vote button ends -->
-                        @can('accept',$answer)
-                        <a title="Mark this answer as Best answer" class="{{$answer->status}} mt-2 " onclick="event.preventDefault(); document.getElementById('accept-answer-{{$answer->id}}').submit();">
-                            <i class="fas fa-check fa-2x"></i>
-                        </a>
-                        <form action="{{route('answers.accept',$answer->id)}}" method="POST" id="accept-answer-{{$answer->id}}" style="display: none;">
-                            @csrf</form>
-                        @else @if($answer->is_best)
-                        <a title="The question owner accepted this answer as best answer" class="{{$answer->status}} mt-2 ">
-                            <i class="fas fa-check fa-2x"></i>
-                        </a>
-                        @endif @endcan
+
                     </div>
                     <div class="media-body">
                         {!! $answer->body !!}
@@ -76,3 +67,4 @@
         </div>
     </div>
 </div>
+@endif
