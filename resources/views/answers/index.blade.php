@@ -10,15 +10,31 @@
                 <hr /> @include('layouts.messages') @foreach($answers as $answer)
                 <div class="media">
                     <div class="d-flex flex-column vote-controls">
-                        <a title="This answer is useful" class="vote-up">
+                        <!-- up vote start -->
+                        <a title="This answer is useful" class="vote-up {{ Auth::guest()? 'off' : '' }}" onclick="event.preventDefault();
+                             document.getElementById('up-vote-answer-{{ $answer->id }}').submit();">
                             <i class="fas fa-caret-up fa-3x"></i>
                         </a>
+                        <form id="up-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
+                            @csrf
+                            <input type="hidden" name="vote" value="1">
+                        </form>
+                        <!-- up vote ends -->
+                        <!-- votes count counter start -->
                         <span class="votes-count">
-                            25
+                            {{$answer->votes_count}}
                         </span>
-                        <a title="This answer is not useful" class="vote-down off">
+                        <!-- votes count counter end -->
+                        <!-- down vote button start -->
+                        <a title="This answer is not useful" class="vote-down {{ Auth::guest()? 'off' : '' }}" onclick="event.preventDefault();
+                            document.getElementById('down-vote-answer-{{ $answer->id }}').submit();">
                             <i class="fas fa-caret-down fa-3x"></i>
                         </a>
+                        <form id="down-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
+                            @csrf
+                            <input type="hidden" name="vote" value="-1">
+                        </form>
+                        <!-- down vote button ends -->
                         @can('accept',$answer)
                         <a title="Mark this answer as Best answer" class="{{$answer->status}} mt-2 " onclick="event.preventDefault(); document.getElementById('accept-answer-{{$answer->id}}').submit();">
                             <i class="fas fa-check fa-2x"></i>
