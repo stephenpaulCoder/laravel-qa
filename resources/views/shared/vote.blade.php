@@ -1,12 +1,11 @@
-@if($model instanceof App\Question) @php $name ='question'; $firstURISegment='questions'; @endphp @elseif ($model instanceof App\Answer) @php $name ='answer'; $firstURISegment='answers'; @endphp @endif @php $formId= $name. "-" .$model->id; $formAction=
-"/{$firstURISegment}/{model->id }/vote"; @endphp
+@if ($model instanceof App\Question) @php $name = 'question'; $firstURISegment = 'questions'; @endphp @elseif ($model instanceof App\Answer) @php $name = 'answer'; $firstURISegment = 'answers'; @endphp @endif @php $formId = $name . "-" . $model->id; $formAction
+= "/{$firstURISegment}/{$model->id}/vote"; @endphp
 <div class="d-flex flex-column vote-controls">
     <!-- up vote start -->
-    <a title="This question is useful" class="vote-up {{ Auth::guest()? 'off' : '' }}" onclick="event.preventDefault();
-                             document.getElementById('up-vote-question-{{ $formId }}').submit();">
+    <a title="This {{ $name }} is useful" class="vote-up {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('up-vote-{{ $formId }}').submit();">
         <i class="fas fa-caret-up fa-3x"></i>
     </a>
-    <form id="up-vote-{{$formId }}" action="$formAction" method="POST" style="display:none;">
+    <form id="up-vote-{{ $formId }}" action="{{ $formAction }}" method="POST" style="display:none;">
         @csrf
         <input type="hidden" name="vote" value="1">
     </form>
@@ -17,14 +16,13 @@
     </span>
     <!-- votes count counter end -->
     <!-- down vote button start -->
-    <a title="This {{$name}} is not useful" class="vote-down {{ Auth::guest()? 'off' : '' }}" onclick="event.preventDefault();
-                            document.getElementById('down-vote-{{$formId }}').submit();">
+    <a title="This {{ $name }} is not useful" class="vote-down {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('down-vote-{{ $formId }}').submit();">
         <i class="fas fa-caret-down fa-3x"></i>
     </a>
-    <form id="down-vote-{{$formId }}" action="$formAction" method="POST" style="display:none;">
+    <form id="down-vote-{{ $formId }}" action="{{ $formAction }}" method="POST" style="display:none;">
         @csrf
         <input type="hidden" name="vote" value="-1">
     </form>
     <!-- down vote button ends -->
-    @if($model instanceof App\Question) @include('shared.favorite',['model'=>$model]) @elseif ($model instanceof App\Answer) @include('shared.accept',[ 'model'=>$model ]) @endif
+    @if ($model instanceof App\Question) @include ('shared.favorite', [ 'model' => $model ]) @elseif ($model instanceof App\Answer) @include ('shared.accept', [ 'model' => $model ]) @endif
 </div>

@@ -16,5 +16,4 @@ trait VotableTrait {
         return $this->votes()->wherePivot('vote',-1);
     }
 
-
 }

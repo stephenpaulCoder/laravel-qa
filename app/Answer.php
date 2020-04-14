@@ -35,14 +35,11 @@ class Answer extends Model
                 $answer->question->increment('answers_count');
 
             });
-
-
             //decrement the answer count from the database
             static::deleted(function($answer){
 
                 // $question = $answer->question;
                 // $question->question->decrement('answers_count');
-
 
                 //We use database Eloquent ( foreign key )
                 $answer->question->decrement('answers_count');
