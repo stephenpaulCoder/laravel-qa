@@ -18,7 +18,8 @@
 
             </div>
             <div class="col-4 mt-4">
-                @include('shared.author',[ 'model'=>$answer, 'label'=>'answered' ])
+                <!-- @include('shared.author',[ 'model'=>$answer, 'label'=>'answered' ]) -->
+                <author-component :model="{{ $answer }}" label="Answered"> </author-component>
             </div>
         </div>
 

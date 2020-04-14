@@ -22,7 +22,8 @@
                                 <div class="col-4"></div>
                                 <div class="col-4"></div>
                                 <div class="col-4">
-                                    @include('shared.author', [ 'model'=>$question, 'label'=>'asked' ])
+                                    <!-- @include('shared.author', [ 'model'=>$question, 'label'=>'asked' ]) -->
+                                    <author-component :model="{{$question}}" label="Asked"> </author-component>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,8 @@ use Yansongda\LaravelParsedown\Facades\Parsedown;
 
 class Question extends Model
 {
+
+    protected $appends = ['created_date'];
     //
     //use VotableTrait;
     use VotableTrait;
@@ -81,7 +83,7 @@ class Question extends Model
     //relationship model to answer model
     public function answers(){
         return $this->hasMany(Answer::class)->orderBy('votes_count','DESC');
-        //question->answers()->count()
+    //question->answers()->count()
     }
 
     public function acceptBestAnswer(Answer $answer){
