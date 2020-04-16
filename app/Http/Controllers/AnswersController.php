@@ -114,6 +114,12 @@ class AnswersController extends Controller
         //Delete the answer
         $answer->delete();
 
+         if (request()->expectsJson()){
+            return response()->json([
+                'message' => "Your answer has been removed"
+            ]);
+        }
+
         //back and display message
         return back()->with('success','Your answer has been removed');
 

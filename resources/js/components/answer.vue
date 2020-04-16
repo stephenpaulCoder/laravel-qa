@@ -29,7 +29,7 @@ export default {
         // change the {answer} to this.id  answerid that holds the current question
         update() {
             axios
-                .patch(`/questions/${this.questionId}/answers/${this.id}`, {
+                .patch(this.endpoint, {
                     body: this.body
                 })
                 .then(res => {
@@ -40,12 +40,23 @@ export default {
                 .catch(err => {
                     alert(err.response.data.message);
                 });
+        },
+        //delete for answer.blade.php
+        destroy() {
+            if (confirm("Are you sure?")) {
+                axios.delete(this.endpoint).then(res => {
+                    $(this.$el).fadeOut(500, () => {});
+                });
+            }
         }
     },
     computed: {
         //invalid if the form is empty or less than 10 char
         isInvalid() {
             this.body.length < 10;
+        },
+        endpoint() {
+            return `/questions/${this.questionId}/answers/${this.id}`;
         }
     }
 };
