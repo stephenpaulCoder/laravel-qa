@@ -10,7 +10,7 @@ use Yansongda\LaravelParsedown\Facades\Parsedown;
 class Question extends Model
 {
 
-    protected $appends = ['created_date'];
+    protected $appends = ['created_date','is_favorited','favorites_count'];
     //
     //use VotableTrait;
     use VotableTrait;
