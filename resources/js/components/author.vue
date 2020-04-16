@@ -33,6 +33,7 @@ import Gravatar from "vue-gravatar";
 Vue.component("v-gravatar", Gravatar);
 
 export default {
+    //the mode and label came from questions/show.blade.php and answers/answer.blade.php
     props: ["model", "label"],
     data() {
         return {

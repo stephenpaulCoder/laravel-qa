@@ -13,7 +13,7 @@ class Answer extends Model
     use VotableTrait;
     protected $fillable = ['body','user_id'];
 
-    protected $appends = ['created_date'];
+    protected $appends = ['created_date','body_html'];
 
     //first relationship method to Question to model
     public function question(){

@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
+
 require("./bootstrap");
 //import the font awesome we made
 require("./fontawesome");
@@ -22,6 +24,7 @@ window.Vue = require("vue");
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component("author-component", require("./components/author.vue").default);
+Vue.component("answer-component", require("./components/answer.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
