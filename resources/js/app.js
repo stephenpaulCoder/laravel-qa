@@ -43,6 +43,7 @@ Vue.use(VueIziToast);
 Vue.component("author-component", require("./components/author.vue").default);
 Vue.component("answer-component", require("./components/answer.vue").default);
 Vue.component("favorite-component", require("./components/favorite.vue").default);
+Vue.component("accept-component", require("./components/accept.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
