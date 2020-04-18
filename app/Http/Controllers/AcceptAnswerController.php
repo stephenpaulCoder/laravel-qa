@@ -14,7 +14,7 @@ class AcceptAnswerController extends Controller
         // dd('accepted');
 
         //Look for answerPolicy.php
-        $this->authirize('accept',$answer);
+        $this->authorize('accept',$answer);
 
         $answer->question->acceptBestAnswer($answer);
         return back();
