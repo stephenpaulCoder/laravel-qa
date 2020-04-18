@@ -75,13 +75,6 @@
         </main>
     </div>
     <!-- Scripts -->
-    <script>
-        window.Auth = {!!json_encode([
-                'signedIn' => Auth::user(),
-                'user' => Auth::check()
-            ]) !!
-        }
-    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 
 </body>

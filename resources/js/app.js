@@ -18,17 +18,17 @@ import 'izitoast/dist/css/izitoast.min.css';
 
 Vue.use(VueIziToast);
 
-import policies from './policies';
+// import policies from './policies';
 
 
-Vue.prototype.authorize = function(policy, model) {
-    if (!window.Auth.signedIn) return false;
-    if (typeof policy == 'string' && typeof model == 'object') {
-        const user = window.Auth.user;
+// Vue.prototype.authorize = function(policy, model) {
+//     if (!window.Auth.signedIn) return false;
+//     if (typeof policy == 'string' && typeof model == 'object') {
+//         const user = window.Auth.user;
 
-        return policies[policy](user, model);
-    }
-}
+//         return policies[policy](user, model);
+//     }
+// }
 
 /**
  * The following block of code may be used to automatically register your
@@ -44,7 +44,7 @@ Vue.prototype.authorize = function(policy, model) {
 Vue.component("author-component", require("./components/author.vue").default);
 Vue.component("answer-component", require("./components/answer.vue").default);
 Vue.component("favorite-component", require("./components/favorite.vue").default);
-Vue.component("accept-component", require("./components/accept.vue").default);
+// Vue.component("accept-component", require("./components/accept.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

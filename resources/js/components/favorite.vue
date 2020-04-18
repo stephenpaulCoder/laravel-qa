@@ -1,44 +1,71 @@
 <template>
-    <div>
-        <a title="Click to mark as favorite question (Click again to undo)" :class="classes" @click.prevent="toggle">
-            <i class="fas fa-star fa-2x"></i>
-            <span class="favorites-count">{{count }}</span>
-        </a>
-    </div>
+    <a
+        title="Click to mark as favorite question (Click again to undo)"
+        :class="classes"
+        @click.prevent="toggle"
+    >
+        <i class="fas fa-star fa-2x"></i>
+        <span class="favorites-count">{{ count }}</span>
+    </a>
 </template>
 <script>
 export default {
-    props: ['question'],
+    props: ["question", "auth"],
     data() {
         return {
             isFavorited: this.question.is_favorited,
             count: this.question.favorites_count,
-            signedIn: true
-        }
+            id: this.question.id,
+            authUser: this.auth
+        };
     },
     computed: {
         classes() {
             return [
-                'mt-2',
-                'favorite',
-                !this.signedIn ? 'off' : (this.isFavorited ? 'favorited' : '')
+                "favorite",
+                "mt-2",
+                !this.signedIn ? "off" : this.isFavorited ? "favorited" : ""
             ];
+        },
+        endpoint() {
+            return `/questions/${this.id}/favorites`;
+        },
+        signedIn() {
+            if (!this.authUser == "") {
+                return true;
+            }
         }
     },
     methods: {
         toggle() {
+            if (!this.signedIn) {
+                this.$toast.warning(
+                    "Please login to favorite this question",
+                    "Warning",
+                    {
+                        timeout: 3000, // 3seconds
+                        position: "bottomLeft"
+                    }
+                );
+                return;
+            }
             this.isFavorited ? this.destroy() : this.create();
         },
         destroy() {
-            this.count--;
-            this.isFavorited = false;
+            axios.delete(this.endpoint).then(res => {
+                this.count--;
+                this.isFavorited = false;
+            });
         },
         create() {
-            this.count++;
-            this.isFavorited = true;
+            axios.post(this.endpoint).then(res => {
+                this.count++;
+                this.isFavorited = true;
+            });
         }
-
+    },
+    created() {
+        console.log(this.user);
     }
-}
-
+};
 </script>
