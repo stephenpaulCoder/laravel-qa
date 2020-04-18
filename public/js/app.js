@@ -11600,63 +11600,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["question", "auth"],
+  props: ['question'],
   data: function data() {
     return {
       isFavorited: this.question.is_favorited,
       count: this.question.favorites_count,
-      id: this.question.id,
-      authUser: this.auth
+      signedIn: true
     };
   },
   computed: {
     classes: function classes() {
-      return ["favorite", "mt-2", !this.signedIn ? "off" : this.isFavorited ? "favorited" : ""];
-    },
-    endpoint: function endpoint() {
-      return "/questions/".concat(this.id, "/favorites");
-    },
-    signedIn: function signedIn() {
-      if (!this.authUser == "") {
-        return true;
-      }
+      return ['mt-2', 'favorite', !this.signedIn ? 'off' : this.isFavorited ? 'favorited' : ''];
     }
   },
   methods: {
     toggle: function toggle() {
-      if (!this.signedIn) {
-        this.$toast.warning("Please login to favorite this question", "Warning", {
-          timeout: 3000,
-          // 3seconds
-          position: "bottomLeft"
-        });
-        return;
-      }
-
       this.isFavorited ? this.destroy() : this.create();
     },
     destroy: function destroy() {
-      var _this = this;
-
-      axios["delete"](this.endpoint).then(function (res) {
-        _this.count--;
-        _this.isFavorited = false;
-      });
+      this.count--;
+      this.isFavorited = false;
     },
     create: function create() {
-      var _this2 = this;
-
-      axios.post(this.endpoint).then(function (res) {
-        _this2.count++;
-        _this2.isFavorited = true;
-      });
+      this.count++;
+      this.isFavorited = true;
     }
-  },
-  created: function created() {
-    console.log(this.user);
   }
 });
 
@@ -48425,28 +48394,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "a",
-    {
-      class: _vm.classes,
-      attrs: {
-        title: "Click to mark as favorite question (Click again to undo)"
-      },
-      on: {
-        click: function($event) {
-          $event.preventDefault()
-          return _vm.toggle($event)
+  return _c("div", [
+    _c(
+      "a",
+      {
+        class: _vm.classes,
+        attrs: {
+          title: "Click to mark as favorite question (Click again to undo)"
+        },
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.toggle($event)
+          }
         }
-      }
-    },
-    [
-      _c("i", { staticClass: "fas fa-star fa-2x" }),
-      _vm._v(" "),
-      _c("span", { staticClass: "favorites-count" }, [
-        _vm._v(_vm._s(_vm.count))
-      ])
-    ]
-  )
+      },
+      [
+        _c("i", { staticClass: "fas fa-star fa-2x" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "favorites-count" }, [
+          _vm._v(_vm._s(_vm.count))
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -60625,6 +60596,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_izitoast__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_izitoast__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var izitoast_dist_css_izitoast_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! izitoast/dist/css/izitoast.min.css */ "./node_modules/izitoast/dist/css/izitoast.min.css");
 /* harmony import */ var izitoast_dist_css_izitoast_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(izitoast_dist_css_izitoast_min_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _policies__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./policies */ "./resources/js/policies.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -60639,15 +60613,17 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  // import 'izitoast/dist/css/izitoast.css';
 
 
-Vue.use(vue_izitoast__WEBPACK_IMPORTED_MODULE_0___default.a); // import policies from './policies';
-// Vue.prototype.authorize = function(policy, model) {
-//     if (!window.Auth.signedIn) return false;
-//     if (typeof policy == 'string' && typeof model == 'object') {
-//         const user = window.Auth.user;
-//         return policies[policy](user, model);
-//     }
-// }
+Vue.use(vue_izitoast__WEBPACK_IMPORTED_MODULE_0___default.a);
 
+
+Vue.prototype.authorize = function (policy, model) {
+  if (!window.Auth.signedIn) return false;
+
+  if (typeof policy == 'string' && _typeof(model) == 'object') {
+    var user = window.Auth.user;
+    return _policies__WEBPACK_IMPORTED_MODULE_2__["default"][policy](user, model);
+  }
+};
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -60657,6 +60633,7 @@ Vue.use(vue_izitoast__WEBPACK_IMPORTED_MODULE_0___default.a); // import policies
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
 
 Vue.component("author-component", __webpack_require__(/*! ./components/author.vue */ "./resources/js/components/author.vue")["default"]);
 Vue.component("answer-component", __webpack_require__(/*! ./components/answer.vue */ "./resources/js/components/answer.vue")["default"]);
@@ -61014,6 +60991,26 @@ __webpack_require__.r(__webpack_exports__);
 
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__["library"].add([_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faCaretDown"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faCaretUp"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faCheck"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faStar"]]);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__["dom"].watch();
+
+/***/ }),
+
+/***/ "./resources/js/policies.js":
+/*!**********************************!*\
+  !*** ./resources/js/policies.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  modify: function modify(user, model) {
+    return user.id == model.user_id;
+  },
+  accept: function accept(user, answer) {
+    return user.id == answer.question.user_id;
+  }
+});
 
 /***/ }),
 

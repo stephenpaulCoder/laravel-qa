@@ -24,13 +24,10 @@
         <input type="hidden" name="vote" value="-1">
     </form>
     <!-- down vote button ends -->
-    @if ($model instanceof App\Question) @auth
-    <favorite-component :question="{{ $model }}" :auth="{{ Auth::check() }}">
-    </favorite-component>
-    @endauth @guest
-    <favorite-component :question="{{ $model }}">
-    </favorite-component>
-    @endguest
+    @if ($model instanceof App\Question)
+
+    <favorite-component :question="{{ $model }}" ></favorite-component>
+
     <!--
     @include ('shared.favorite', [ 'model' => $model ])  -->
 
