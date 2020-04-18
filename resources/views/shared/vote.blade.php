@@ -25,15 +25,14 @@
     </form>
     <!-- down vote button ends -->
     @if ($model instanceof App\Question) @auth
-    <favorite-component :question="{{ $model }}" :auth="{{ Auth::check() }}"></favorite-component>
+    <favorite-component :question="{{ $model }}" :auth="{{ Auth::check() }}">
+    </favorite-component>
     @endauth @guest
-    <favorite-component :question="{{ $model }}"></favorite-component>
+    <favorite-component :question="{{ $model }}">
+    </favorite-component>
     @endguest
-
     <!--
     @include ('shared.favorite', [ 'model' => $model ])  -->
 
-    @elseif ($model instanceof App\Answer)
-    <!-- <accept-component :answer="{{ $model }}"> </accept-component> -->
-    @endif
+    @elseif ($model instanceof App\Answer) @include ('shared.accept', [ 'model' => $model ]) @endif
 </div>
