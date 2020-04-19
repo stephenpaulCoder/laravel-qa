@@ -3,24 +3,25 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
 use App\Answer;
+use Illuminate\Http\Request;
 
 
 class AcceptAnswerController extends Controller
 {
     //
-    public function __invoke(Answer $answer){
+    public function __invoke(Answer $answer)
+    {
         // dd('accepted');
 
         //Look for answerPolicy.php
-        $this->authorize('accept',$answer);
+        $this->authorize('accept', $answer);
 
         $answer->question->acceptBestAnswer($answer);
 
-        if(request()->expectsJson()){
+        if (request()->expectsJson()) {
             return response()->json([
-                'message'=>"You have accepted this answer as best answer"
+                'message' => "You have accepted this answer as best answer"
             ]);
         }
         return back();

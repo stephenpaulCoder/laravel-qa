@@ -32,5 +32,8 @@ $model->id; $formAction
     <favorite-component :question="{{ $model }}"></favorite-component>
     <!--@include ('shared.favorite', [ 'model' => $model ])  -->
 
-    @elseif ($model instanceof App\Answer) @include ('shared.accept', [ 'model' => $model ]) @endif
+    @elseif ($model instanceof App\Answer)
+    {{-- @include ('shared.accept', [ 'model' => $model ]) --}}
+    <accept-component :answer="{{ $model }}"></accept-component>
+    @endif
 </div>
