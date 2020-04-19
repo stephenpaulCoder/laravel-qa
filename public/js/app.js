@@ -11532,13 +11532,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["question", "auth"],
+  props: ["question"],
   data: function data() {
     return {
       isFavorited: this.question.is_favorited,
       count: this.question.favorites_count,
-      id: this.question.id,
-      authUser: this.auth
+      id: this.question.id
     };
   },
   computed: {
@@ -11549,9 +11548,7 @@ __webpack_require__.r(__webpack_exports__);
       return "/questions/".concat(this.id, "/favorites");
     },
     signedIn: function signedIn() {
-      if (!this.authUser == "") {
-        return true;
-      }
+      return window.Auth.signedIn;
     }
   },
   methods: {
@@ -11559,7 +11556,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.signedIn) {
         this.$toast.warning("Please login to favorite this question", "Warning", {
           timeout: 3000,
-          // 3seconds
           position: "bottomLeft"
         });
         return;
@@ -11583,9 +11579,6 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isFavorited = true;
       });
     }
-  },
-  created: function created() {
-    console.log(this.user);
   }
 });
 

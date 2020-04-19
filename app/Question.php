@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use App\User;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,37 +11,43 @@ use Yansongda\LaravelParsedown\Facades\Parsedown;
 class Question extends Model
 {
 
-    protected $appends = ['created_date','is_favorited','favorites_count'];
-    //
-    //use VotableTrait;
-    use VotableTrait;
-    protected $fillable = ['title','body'];
+    protected $appends = ['created_date', 'is_favorited', 'favorites_count'];
 
-    // a question belongs to user
-    public function user(){
+    use VotableTrait;
+
+    protected $fillable = ['title', 'body'];
+
+
+    /***   a question belongs to user */
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
 
-    public function setTitleAttribute($value){
+    public function setTitleAttribute($value)
+    {
 
-        $this->attributes['title']=$value;
+        $this->attributes['title'] = $value;
         $this->attributes['slug'] =  Str::slug($value);
     }
 
 
-    public function getUrlAttribute(){
-        return route('questions.show',$this->slug);
+    public function getUrlAttribute()
+    {
+        return route('questions.show', $this->slug);
     }
 
-    public function getCreatedDateAttribute(){
+    public function getCreatedDateAttribute()
+    {
 
         return $this->created_at->diffForHumans();
     }
 
-    public function getStatusAttribute(){
-        if($this->answers_count > 0){
-            if($this->best_answer_id){
+    public function getStatusAttribute()
+    {
+        if ($this->answers_count > 0) {
+            if ($this->best_answer_id) {
                 return "answered-accepted";
             }
             return "answered";
@@ -55,7 +62,8 @@ class Question extends Model
      */
 
     //use Clean library using clean($this->bodyHtml());
-    public function getBodyHtmlAttribute(){
+    public function getBodyHtmlAttribute()
+    {
         return clean($this->bodyHtml());
     }
     /**
@@ -67,27 +75,32 @@ class Question extends Model
      */
 
     //prevent XSS attack
-    public function getExcerptAttribute(){
-    //   return  Str::limit(strip_tags($this->bodyHtml()),250);
-    return $this->excerpt(250);
+    public function getExcerptAttribute()
+    {
+        //   return  Str::limit(strip_tags($this->bodyHtml()),250);
+        return $this->excerpt(250);
     }
     //prevent XSS attack
-    public function excerpt($length){
-     return  Str::limit(strip_tags($this->bodyHtml()),$length);
+    public function excerpt($length)
+    {
+        return  Str::limit(strip_tags($this->bodyHtml()), $length);
     }
     //prevent XSS attack
-    private function bodyHtml(){
-      return Parsedown::instance()->text($this->body);
+    private function bodyHtml()
+    {
+        return Parsedown::instance()->text($this->body);
     }
     //link for parsedown  https://github.com/yansongda/laravel-parsedown external library
 
     //relationship model to answer model
-    public function answers(){
-        return $this->hasMany(Answer::class)->orderBy('votes_count','DESC');
-    //question->answers()->count()
+    public function answers()
+    {
+        return $this->hasMany(Answer::class)->orderBy('votes_count', 'DESC');
+        //question->answers()->count()
     }
 
-    public function acceptBestAnswer(Answer $answer){
+    public function acceptBestAnswer(Answer $answer)
+    {
         $this->best_answer_id = $answer->id;
         $this->save();
     }
