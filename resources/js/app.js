@@ -18,17 +18,9 @@ import 'izitoast/dist/css/izitoast.min.css';
 
 Vue.use(VueIziToast);
 
-// import policies from './policies';
+import Authorization from './authorization/authorize';
 
-
-// Vue.prototype.authorize = function(policy, model) {
-//     if (!window.Auth.signedIn) return false;
-//     if (typeof policy == 'string' && typeof model == 'object') {
-//         const user = window.Auth.user;
-
-//         return policies[policy](user, model);
-//     }
-// }
+Vue.use(Authorization);
 
 /**
  * The following block of code may be used to automatically register your

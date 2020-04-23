@@ -20,14 +20,9 @@
                     <div class="col-4">
                         <div class="ml-auto">
                             @can ('update', $answer)
-                            <a @click.prevent="edit" class="btn btn-sm btn-outline-info">Edit</a
-                            >
+                            <a @click.prevent="edit" class="btn btn-sm btn-outline-info">Edit</a>
                             @endcan @can ('delete', $answer)
-                            <button
-                                type="button"
-                                v-on:click="destroy"
-                                class="btn btn-sm btn-outline-danger"
-                            >
+                            <button type="button" v-on:click="destroy" class="btn btn-sm btn-outline-danger">
                                 Delete
                             </button>
                             @endcan
@@ -36,10 +31,7 @@
                     <div class="col-4"></div>
                     <div class="col-4 mt-4">
                         <!-- @include('shared.author',[ 'model'=>$answer, 'label'=>'answered' ])  vue component below-->
-                        <author-component
-                            :model="{{ $answer }}"
-                            label="Answered"
-                        >
+                        <author-component :model="{{ $answer }}" label="Answered">
                         </author-component>
                     </div>
                 </div>
